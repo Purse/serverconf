@@ -7,6 +7,16 @@ alias ls='ls --color=auto'
 alias ll='ls -lsah'
 alias vi='vim'
 
+docker-image-inspect(){
+    docker service ps -q --filter "desired-state=running" $1 | xargs -I{} docker inspect  -f '{{.NodeID}} {{.Spec.ContainerSpec.Image}}' '{}'
+}
+alias dimage="docker-image-inspect"
+
+d-exec-nodes(){
+    docker node list --format "{{ .Hostname }}" | xargs -I"SERVER" sh -c "echo SERVER; ssh -o StrictHostKeyChecking=no -i \"$HOME/.docker/machine/machines/SERVER/id_rsa\" docker-user@SERVER $1"
+}
+alias dexecnodes="d-exec-nodes"
+
 # Docker
 alias d="docker"
 alias dps="docker ps"
@@ -19,6 +29,10 @@ alias dockerrm="docker rm \$(docker ps -aq)"
 # Search up/down
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
+
+# add timestamps to bash history
+HISTTIMEFORMAT="%F %T "
+HISTFILESIZE=5000
 
 # Custom profiles
 if [ -f ~/.deploy_profile ]; then
