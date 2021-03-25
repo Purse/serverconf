@@ -5,11 +5,13 @@ PS1='[\u@\h \W]\$ '
 
 alias ls='ls --color=auto'
 alias ll='ls -lsah'
+alias vi='vim'
 
 # Docker
 alias d="docker"
 alias dps="docker ps"
 alias dl="docker logs -f --tail=1000"
+alias dkl="dl"
 alias dc="docker-compose"
 alias dockerclean="docker rmi \$(docker images | grep '<none>' | awk '{print $3}')"
 alias dockerrm="docker rm \$(docker ps -aq)"
