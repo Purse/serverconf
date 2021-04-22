@@ -31,8 +31,10 @@ bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
 # add timestamps to bash history
-HISTTIMEFORMAT="%F %T "
-HISTFILESIZE=5000
+export HISTTIMEFORMAT="%F %T "
+export HISTFILESIZE=5000
+# ignore entries prefixed with space
+export HISTCONTROL=ignorespace
 
 # Custom profiles
 if [ -f ~/.deploy_profile ]; then
